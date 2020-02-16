@@ -1,0 +1,12 @@
+{
+	"validations": [
+		"\\(stackoverflow)(\\/jobs\\/)\\w+?(\\/)\\",
+		"\\(glassdoor.com)(/Job/)\\",
+		"\\(glassdoor.com/)(job-listing/)\\S+?(jl=)\\",
+		"\\(linkedin.com/)(jobs/)(search/)\\S+?(currentJobId=)\\",
+		"\\(linkedin.com/)(jobs/)(view/)\\S+?(/)\\",
+		"\\(indeed.com/)(jobs)\\S+?(vjk=)\\",
+		"\\(indeed.com/)(viewjob)\\S+?(jk=)\\"
+	],
+	"origins": ["stackoverflow", "glasdoor", "linkedin", "indeed"]
+}

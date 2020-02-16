@@ -8,6 +8,10 @@ const jobSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  uniqueId: {
+    type: Number,
+    required: true
+  },
   title: {
     type: String,
     required: true
@@ -37,7 +41,7 @@ const jobSchema = new mongoose.Schema({
 const jobDetailSchema = new mongoose.Schema({
   job: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'Job',
     required: true
   },
   type: {
@@ -74,7 +78,7 @@ const jobDetailSchema = new mongoose.Schema({
   }
 })
 
-const Job = mongoose.model('Job', jobSchema)
-const JobDetail = mongoose.model('JobDetail', jobDetailSchema)
+const Info = mongoose.model('Job', jobSchema)
+const Detail = mongoose.model('JobDetail', jobDetailSchema)
 
-module.exports = { Job, JobDetail }
+module.exports = { Info, Detail }

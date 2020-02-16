@@ -1,9 +1,12 @@
-const app = require('express')()
-
+const express = require('express')
 const { ApolloServer } = require('apollo-server-express')
+const bodyParser = require('body-parser')
 
 const context = require('./utils/context')
 const schema = require('./modules')
+
+// TODO : Error handlings
+// TODO : Testing
 
 const server = new ApolloServer({
   schema,
@@ -12,9 +15,12 @@ const server = new ApolloServer({
   })
 })
 
+const app = express()
+
 server.applyMiddleware({
   path: '/',
   app
 })
+app.use(bodyParser.json())
 
 module.exports = app

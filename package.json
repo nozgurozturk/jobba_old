@@ -4,6 +4,7 @@
   "description": "Jobba the Hub - Collect jobs",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint --fix src/**",
     "dev": "nodemon src/index.js --exec \"node -r dotenv/config\"",
     "test": "NODE_ENV=mocha mocha -r dotenv/config --recursive './{,!(node_modules)/**}/*.test.js'"
   },
@@ -31,15 +32,20 @@
   "dependencies": {
     "apollo-server-express": "^2.10.1",
     "bcrypt": "^3.0.8",
+    "cheerio": "^1.0.0-rc.3",
     "deepmerge": "^4.2.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "graphql": "^14.6.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5",
     "throng": "^4.0.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.8.4",
+    "babel-eslint": "^10.0.3",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.20.1",

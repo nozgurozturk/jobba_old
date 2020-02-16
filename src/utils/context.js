@@ -1,21 +1,21 @@
+const { SyntaxError, ValidationError, AuthenticationError } = require('apollo-server-express')
 const token = require('./token')
 const User = require('../models/user')
-
-// const TOKEN_HEADER_NAME = 'x-token'
 
 const getUser = async req => {
   if (!req) return null
 
-  if (!req.headers.authorization) return 'Bearer Token is not found'
+  if (!req.headers.authorization) return new AuthenticationError('Token is not found')
 
   const tokenHeader = req.headers.authorization.split(' ')[1]
-  if (!tokenHeader) return 'Token is not found'
-
+  if (!tokenHeader) return new ValidationError('Token is not correct')
   try {
     const decodedToken = await token.decode(tokenHeader)
-    return await User.findById(decodedToken.userId)
+    const user = await User.findById(decodedToken.userId)
+    if (!user) return new ValidationError('User not found', '204')
+    return user
   } catch (error) {
-    return null
+    return new SyntaxError('Internal server error')
   }
 }
 

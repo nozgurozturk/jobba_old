@@ -28,6 +28,11 @@ const jobSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  originId: {
+    type: String,
+    require: true
+  },
+  detail: mongoose.Schema.Types.Mixed,
   created: {
     type: Date,
     default: Date.now

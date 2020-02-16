@@ -13,7 +13,6 @@ const typeDefs = gql`
       origin: String,
       status: Int!,
       link: String!,
-      uniqueId: String!
     ): JobInput
 
     createJobDetail(
@@ -34,7 +33,6 @@ const typeDefs = gql`
     origin: String,
     status: Int!,
     link: String!,
-    uniqueId: String!
   }
 
   type DetailInput {

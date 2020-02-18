@@ -9,7 +9,8 @@ const resolvers = {
   },
   Mutation: {
     createJob: Job.createInfo,
-    createJobDetail: Job.createDetail
+    createJobDetail: Job.createDetail,
+    createJobWithLink: Job.createJobWithLink
   }
 }
 

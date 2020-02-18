@@ -1,12 +1,11 @@
 const { UserInputError, ApolloError } = require('apollo-server-express')
 const Job = require('../../../models/job')
 const Helper = require('../utils/helpers')
+const StackOverflow = require('../scrapper/stackoverflow')
 
-const createInfo = async (_, { title, origin, status, link, detail, originId }, { user }) => {
+const createInfo = async (_, { title, origin, status, link, detail, uniqueId }, { user }) => {
   try {
     const userId = user._id.toString()
-
-    const uniqueId = await Helper.UniqueIdGenerator(originId, origin)
 
     const existingJob = await Job.Info.findOne({ uniqueId })
 
@@ -19,8 +18,7 @@ const createInfo = async (_, { title, origin, status, link, detail, originId }, 
       status,
       link,
       detail,
-      uniqueId,
-      originId
+      uniqueId
     })
 
     await newJob.populate('user').execPopulate()
@@ -49,8 +47,38 @@ const createDetail = async (_, { type, role, industry, experience, companyName, 
     await newJob.populate('job').execPopulate()
     return newJob.save()
   } catch (error) {
-    return new ApolloError('Internal server error')
+    return new ApolloError(error)
   }
 }
 
-module.exports = { createDetail, createInfo }
+const createJobWithLink = async (_, { link }, { user }) => {
+  try {
+    const userId = user._id.toString()
+
+    const { name, originId } = await Helper.linkResolver(link)
+
+    const uniqueId = await Helper.uniqueIdGenerator(originId, name)
+
+    const existingJob = await Job.Info.findOne({ uniqueId })
+
+    if (existingJob) throw new UserInputError('You saved this job before')
+
+    const SOJOB = await new StackOverflow(link).spider()
+
+    const newJob = new Job.Info({
+      user: userId,
+      origin: name,
+      status: 0,
+      link,
+      uniqueId,
+      ...SOJOB
+    })
+    await newJob.populate('user').execPopulate()
+
+    return newJob.save()
+  } catch (error) {
+    return new ApolloError(error)
+  }
+}
+
+module.exports = { createDetail, createInfo, createJobWithLink }

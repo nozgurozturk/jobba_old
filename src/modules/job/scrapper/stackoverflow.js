@@ -1,5 +1,4 @@
 const BaseScrapper = require('./base')
-const Helper = require('../utils/helpers')
 
 class Stackoverflow extends BaseScrapper {
   #title;
@@ -50,22 +49,14 @@ class Stackoverflow extends BaseScrapper {
       detail = {
         ...detail, companyName, location, tags
       }
-
-      const origin = Helper.originIdentifier(this.link)
-      const originId = this.idResolver
-      const uniqueId = await Helper.uniqueIdGenerator(originId, origin)
       const job = {
-        title, origin, companyName, location, uniqueId, detail, link: this.link, originId
+        title, companyName, location, detail
       }
       // eslint-disable-next-line no-console
-      console.dir(job)
+      return job
     } catch (error) {
       return new Error('DOM is not loaded')
     }
-  }
-
-  get idResolver () {
-    return this.link.split('jobs/')[1].split('/')[0]
   }
 }
 

@@ -21,7 +21,7 @@ const jobSchema = new mongoose.Schema({
     required: false
   },
   status: {
-    type: String,
+    type: Number,
     required: true
   },
   link: {

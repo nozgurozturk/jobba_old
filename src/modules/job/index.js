@@ -25,6 +25,10 @@ const typeDefs = gql`
       tags: [String!],
       description: String
     ): DetailInput
+
+    createJobWithLink(
+      link: String!
+    ): Job
   }
 
   type JobInput {
@@ -33,6 +37,10 @@ const typeDefs = gql`
     origin: String,
     status: Int!,
     link: String!,
+  }
+
+  type WithLinkInput {
+    link: String!
   }
 
   type DetailInput {
@@ -54,7 +62,7 @@ const typeDefs = gql`
     status: Int!,
     link: String!,
     detail: Detail!,
-    uniqueId: String!
+    uniqueId: Int!
   }
 
   type Detail {

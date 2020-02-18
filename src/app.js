@@ -4,6 +4,7 @@ const bodyParser = require('body-parser')
 
 const context = require('./utils/context')
 const schema = require('./modules')
+const Helper = require('./modules/job/utils/helpers')
 
 // TODO : Error handlings
 // TODO : Testing
@@ -21,6 +22,7 @@ server.applyMiddleware({
   path: '/',
   app
 })
+
 app.use(bodyParser.json())
 
 module.exports = app

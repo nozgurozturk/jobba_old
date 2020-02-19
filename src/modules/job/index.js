@@ -71,7 +71,7 @@ const typeDefs = gql`
     role: String,
     industry: String,
     experience: String,
-    compantName: String,
+    companyName: String,
     location: String,
     tags: [String!],
     description: String

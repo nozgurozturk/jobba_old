@@ -16,11 +16,12 @@ const typeDefs = gql`
     ): JobInput
 
     createJobDetail(
-      type: String,
+      jobType: String,
       role: String,
+      experienceLevel: String,
       industry: String,
       experience: String,
-      compantName: String,
+      companyName: String,
       location: String,
       tags: [String!],
       description: String
@@ -42,14 +43,14 @@ const typeDefs = gql`
   type WithLinkInput {
     link: String!
   }
-
   type DetailInput {
     job : Job!
-    type: String,
+    jobType: String,
     role: String,
+    experienceLevel: String,
     industry: String,
     experience: String,
-    compantName: String,
+    companyName: String,
     location: String,
     tags: [String!],
     description: String
@@ -61,14 +62,15 @@ const typeDefs = gql`
     origin: String,
     status: Int!,
     link: String!,
-    detail: Detail!,
+    detail: Detail,
     uniqueId: Int!
   }
 
   type Detail {
     id: ID!
-    type: String,
+    jobType: String,
     role: String,
+    experienceLevel: String,
     industry: String,
     experience: String,
     companyName: String,

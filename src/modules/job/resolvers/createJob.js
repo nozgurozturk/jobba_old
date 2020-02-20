@@ -2,6 +2,7 @@ const { UserInputError, ApolloError } = require('apollo-server-express')
 const Job = require('../../../models/job')
 const Helper = require('../utils/helpers')
 const StackOverflow = require('../scrapper/stackoverflow')
+const Linkedin = require('../scrapper/linkedin')
 
 const createInfo = async (_, { title, origin, status, link, detail, uniqueId }, { user }) => {
   try {
@@ -63,7 +64,8 @@ const createJobWithLink = async (_, { link }, { user }) => {
 
     if (existingJob) throw new UserInputError('You saved this job before')
 
-    const SOJOB = await new StackOverflow(link).spider()
+    //const SOJOB = await new StackOverflow(link).spiderInner()
+    const LinkedJOB = await new Linkedin(link).spiderInner()
 
     const newJob = new Job.Info({
       user: userId,
@@ -71,7 +73,8 @@ const createJobWithLink = async (_, { link }, { user }) => {
       status: 0,
       link,
       uniqueId,
-      ...SOJOB
+      //...SOJOB
+      ...LinkedJOB
     })
     await newJob.populate('user').execPopulate()
 

@@ -14,9 +14,10 @@ class Stackoverflow extends BaseScrapper {
     this.#location = '.job-details--header .fs-body3 .fc-black-500'
     this.#detail = '.job-details--about'
     this.#tag = '.post-tag'
+    this.#description = '.job-details__spaced section:nth-child(4)'
   }
 
-  async spider () {
+  async spiderInner () {
     try {
       const DOM = await this.$()
 
@@ -26,7 +27,7 @@ class Stackoverflow extends BaseScrapper {
 
       const tags = []
       const tagParent = DOM('#overview-items').find(this.#tag)
-
+      const description = DOM(this.#description).html()
       tagParent.each(function () {
         tags.push(DOM(this).cleaner())
       })
@@ -41,13 +42,14 @@ class Stackoverflow extends BaseScrapper {
           const info = DOM(el)
             .find('span:nth-child(2)').cleaner()
           // eslint-disable-next-line no-return-assign
-          const property = description.replace(' ', '_').replace(':', '').toLowerCase()
+          let property = description.toLowerCase().split(' ').map(afterSpace => afterSpace.charAt(0).toUpperCase() + afterSpace.slice(1)).join('')
+          property = property.charAt(0).toLowerCase() + property.slice(1).replace(':', '')
           detail = { ...detail, [property]: info }
           return detail
         })
       })
       detail = {
-        ...detail, companyName, location, tags
+        ...detail, companyName, location, tags, description
       }
       const job = {
         title, companyName, location, detail

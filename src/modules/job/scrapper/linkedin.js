@@ -44,7 +44,7 @@ class Linkedin extends BaseScrapper {
       const detail = { companyName, location, tags, experienceLevel, jobType, industry, description }
 
       const job = {
-        title, companyName, location, detail
+        title, detail
       }
       // eslint-disable-next-line no-console
       return job

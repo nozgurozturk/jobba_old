@@ -49,10 +49,10 @@ class Stackoverflow extends BaseScrapper {
         })
       })
       detail = {
-        ...detail, companyName, location, tags, description
+        ...detail, tags, description, companyName, location
       }
       const job = {
-        title, companyName, location, detail
+        title, detail
       }
       // eslint-disable-next-line no-console
       return job

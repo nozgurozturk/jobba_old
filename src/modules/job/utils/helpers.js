@@ -18,6 +18,13 @@ const origins = [
     afterKey: '/'
   },
   {
+    validation: /(stackoverflow.com)(\/jobs\\?)/g,
+    host: 1,
+    name: 'stackoverflow',
+    beforeKey: 'jobs?id=',
+    afterKey: null
+  },
+  {
     validation: /(glassdoor.com)(\/Job\/)/g,
     host: 2,
     name: 'glassdoor',

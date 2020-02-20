@@ -25,13 +25,6 @@ const origins = [
     afterKey: null
   },
   {
-    validation: /(glassdoor.com)(\/Job\/)/g,
-    host: 2,
-    name: 'glassdoor',
-    beforeKey: 'Job/', // BUG: Glassdoor's link has not contain job ID
-    afterKey: '.'
-  },
-  {
     validation: /(glassdoor.com)(\/job-listing\/)/g,
     host: 2,
     name: 'glassdoor',
@@ -94,13 +87,15 @@ const uniqueIdGenerator = (id, origin) => new Promise((resolve, reject) => {
     ascii += origin.charCodeAt(pointer)
     pointer++
   }
-  // origin.split('').map(char => {
-  //   ascii += parseInt(char.charCodeAt(0))
-  // })
+
   if (ascii <= 0) {
     reject(new Error('Unique Id is not generated'))
   } else {
-    const unique = ascii + parseInt(id)
+    let resolvedId = parseInt(id)
+
+    if (id && isNaN(parseInt(id))) resolvedId = Date.now()
+
+    const unique = ascii + resolvedId
     resolve(unique)
   }
 })

@@ -11,9 +11,9 @@ class Linkedin extends BaseScrapper {
   #description;
   constructor (link) {
     super(link)
-    this.#title = '.topcard__title, .jobs-top-card__job-title'
-    this.#companyName = '.sub-nav-cta__optional-url, .jobs-top-card__company-url'
-    this.#location = '.topcard__flavor--bullet, .jobs-top-card__bullet'
+    this.#title = '.topcard__title, .jobs-details-top-card__job-title'
+    this.#companyName = '.sub-nav-cta__optional-url, .jobs-details-top-card__company-url'
+    this.#location = '.topcard__flavor--bullet, .jobs-details-top-card__bullet'
     this.#tag = '.jobs-ppc-criteria__value'
     this.#experienceLevel = '.job-criteria__item:nth-child(1)>.job-criteria__text, .js-formatted-exp-body'
     this.#jobType = '.job-criteria__item:nth-child(2)>.job-criteria__text, .js-formatted-employment-status-body'

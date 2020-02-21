@@ -8,11 +8,6 @@ class BaseScrapper {
 
   async $ () {
     try {
-      // const html = rp({
-      //   uri: 'https://www.stackoverflow.com/',
-      //   method: 'GET',
-      //   resolveWithFullResponse: true
-      // })
       const html = await rp({
         uri: this.link,
         rejectUnauthorized: false,

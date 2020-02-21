@@ -63,7 +63,7 @@ const typeDefs = gql`
     status: Int!,
     link: String!,
     detail: Detail,
-    uniqueId: Int!
+    uniqueId: String!
   }
 
   type Detail {

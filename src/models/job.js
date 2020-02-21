@@ -9,7 +9,7 @@ const jobSchema = new mongoose.Schema({
     required: true
   },
   uniqueId: {
-    type: Number,
+    type: String,
     required: true
   },
   title: {

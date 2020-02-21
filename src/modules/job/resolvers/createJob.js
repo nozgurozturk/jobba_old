@@ -1,8 +1,7 @@
 const { UserInputError, ApolloError } = require('apollo-server-express')
 const Job = require('../../../models/job')
 const Helper = require('../utils/helpers')
-const StackOverflow = require('../scrapper/stackoverflow')
-const Linkedin = require('../scrapper/linkedin')
+const Identifier = require('../scrapper')
 
 const createInfo = async (_, { title, origin, status, link, detail, uniqueId }, { user }) => {
   try {
@@ -56,7 +55,7 @@ const createJobWithLink = async (_, { link }, { user }) => {
   try {
     const userId = user._id.toString()
 
-    const { name, originId } = await Helper.linkResolver(link)
+    const { name, originId, host } = await Helper.linkResolver(link)
 
     const uniqueId = await Helper.uniqueIdGenerator(originId, name)
 
@@ -64,8 +63,7 @@ const createJobWithLink = async (_, { link }, { user }) => {
 
     if (existingJob) throw new UserInputError('You saved this job before')
 
-    //const SOJOB = await new StackOverflow(link).spiderInner()
-    const LinkedJOB = await new Linkedin(link).spiderInner()
+    const dedicatedJob = await Identifier(link, name, originId, host)
 
     const newJob = new Job.Info({
       user: userId,
@@ -73,8 +71,7 @@ const createJobWithLink = async (_, { link }, { user }) => {
       status: 0,
       link,
       uniqueId,
-      //...SOJOB
-      ...LinkedJOB
+      ...dedicatedJob
     })
     await newJob.populate('user').execPopulate()
 

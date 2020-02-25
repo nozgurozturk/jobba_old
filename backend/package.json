@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint --fix src/**",
-    "dev": "nodemon src/index.js --exec \"node -r dotenv/config\"",
+    "start": "NODE_ENV=development nodemon --inspect=0.0.0.0 src/index.js --exec \"node -r dotenv/config\"",
+    "start:prod":"NODE_ENV=production node src/index.js",
     "test": "NODE_ENV=mocha mocha -r dotenv/config --recursive './{,!(node_modules)/**}/*.test.js'"
   },
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "npm test"
+      "pre-push": ""
     }
   },
   "lint-staged": {

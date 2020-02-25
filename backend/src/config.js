@@ -1,13 +1,22 @@
-const PORT = process.env.PORT
-const MONGODB_URI = process.env.MONGODB_URI
-const WORKERS = process.env.WORKERS
-const JWT_LIFE_TIME = process.env.JWT_LIFE_TIME
-const JWT_SECRET = process.env.JWT_SECRET
+
+const {
+  PORT,
+  MONGO_USERNAME,
+  MONGO_PASSWORD,
+  MONGO_HOSTNAME,
+  MONGO_PORT,
+  MONGO_DB,
+  JWT_LIFE_TIME,
+  JWT_SECRET
+} = process.env
 
 module.exports = {
   PORT,
-  MONGODB_URI,
-  WORKERS,
+  MONGO_USERNAME,
+  MONGO_PASSWORD,
+  MONGO_HOSTNAME,
+  MONGO_PORT,
+  MONGO_DB,
   JWT_LIFE_TIME,
   JWT_SECRET
-}
+} 

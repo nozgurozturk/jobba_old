@@ -1,11 +1,16 @@
-FROM node:latest
+FROM node:lts-alpine
 
-WORKDIR /app
+RUN apk --no-cache add python make g++
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install
 
 COPY . .
 
-RUN npm i
-
 EXPOSE 5001
 
-ENTRYPOINT [ "npm", "run", "dev" ]
+ENTRYPOINT [ "npm", "run", "start" ]
+

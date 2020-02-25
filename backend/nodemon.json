@@ -3,6 +3,7 @@
       ".git",
       "node_modules",
       "package.json",
+      "Dockerfile",
       "test"
     ],
     "ext": "js json",

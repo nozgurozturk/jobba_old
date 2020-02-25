@@ -1,0 +1,50 @@
+version: '3'
+services:
+  ui:
+    container_name: jobba-ui
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - '8080:8080'
+    networks:
+      - nodeapp-network
+    depends_on: 
+      - api
+  api:
+    container_name: jobba-api
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    restart: always
+    env_file: .env
+    environment:
+      - MONGO_USERNAME=$MONGO_USERNAME
+      - MONGO_PASSWORD=$MONGO_PASSWORD
+      - MONGO_HOSTNAME=database
+      - MONGO_PORT=$MONGO_PORT
+      - MONGO_DB=$MONGO_DB
+    ports:
+      - '5001:5001'
+    networks:
+      - nodeapp-network
+    depends_on: 
+      - database
+  database:
+    container_name: jobba-mongo
+    image: mongo
+    env_file: .env
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=$MONGO_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD=$MONGO_PASSWORD
+    volumes:
+      - ./data:/data/db
+    ports:
+      - '27017:27017'
+    networks:
+      - nodeapp-network
+  
+networks:
+  nodeapp-network:
+    driver: bridge

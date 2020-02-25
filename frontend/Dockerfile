@@ -1,0 +1,18 @@
+FROM node:lts-alpine
+
+RUN apk --no-cache add python make g++
+
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+EXPOSE 8080
+
+ENTRYPOINT [ "npm", "run", "serve" ]

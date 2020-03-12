@@ -70,3 +70,4 @@ jspm_packages/
 .vscode-test
 
 data
+mongo-init.js

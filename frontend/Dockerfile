@@ -1,18 +1,11 @@
 FROM node:lts-alpine
 
-RUN apk --no-cache add python make g++
-
-RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-
-ENV PATH /usr/src/app/node_modules/.bin:$PATH
-
-COPY package*.json ./
-
+RUN apk add python make g++
+ADD package.json package-lock.json ./
 RUN npm install
 
-COPY . .
+ADD babel.config.js .
+ADD vue.config.js .
 
-EXPOSE 8080
-
-ENTRYPOINT [ "npm", "run", "serve" ]
+CMD ["npm", "run", "serve"]

@@ -1,0 +1,31 @@
+
+
+/* theme color */
+$--color-primary: #0F62FE !default;
+$--color-success: #42BE65 !default;
+$--color-warning: #F1C21B !default;
+$--color-danger: #FA4D56 !default;
+$--color-info: #8D8D8D !default;
+
+$--color-text-primary: #191919 !default;
+/// color|1|Font Color|2
+$--color-text-regular: #393939 !default;
+/// color|1|Font Color|2
+$--color-text-secondary: #8D8D8D !default;
+/// color|1|Font Color|2
+$--color-text-placeholder: #C0C4CC !default;
+/// color|1|Border Color|3
+$--border-color-base: #DCDFE6 !default;
+/// color|1|Border Color|3
+$--border-color-light: #E4E7ED !default;
+/// color|1|Border Color|3
+$--border-color-lighter: #EBEEF5 !default;
+/// color|1|Border Color|3
+$--border-color-extra-light: #F2F6FC !default;
+
+/* icon font path, required */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";
+
+

@@ -1,28 +1,55 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <!-- <div id="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/auth">Auth</router-link>
+    </div> -->
+    <router-view />
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue';
+<style lang="scss">
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld,
-  },
-};
-</script>
+  @font-face {
+    font-family: Roobert;
+    src: url("./assets/fonts/Roobert-Bold.woff");
+    font-weight: 700;
+    font-style:normal;
+  }
+  @font-face {
+    font-family: Roobert;
+    src: url("./assets/fonts/Roobert-Regular.woff");
+      font-weight: 500;
+    font-style:normal;
+  }
+  @font-face {
+    font-family: Roobert;
+    src: url("./assets/fonts/Roobert-Light.woff");
+    font-weight: 300;
+    font-style:normal;
+  }
 
-<style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roobert,  Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #393939;
 }
+html, * , body {
+  font-family: Roobert,  Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+a{
+  text-decoration: none;
+  &:visited{
+    color: inherit;
+  }
+}
+body{
+  margin:0;
+  padding:0;
+}
+
 </style>

@@ -9,14 +9,14 @@
             <el-form-item label="Username" prop="username">
               <el-input
               placeholder="Enter your username"
-              suffix-icon="el-icon-user"
+              prefix-icon="el-icon-user"
               v-model="loginForm.username">
               </el-input>
             </el-form-item>
             <el-form-item label="Password" prop="password">
               <el-input
               placeholder="Enter your password"
-              suffix-icon="el-icon-lock"
+              prefix-icon="el-icon-lock"
               v-model="loginForm.password"
               show-password>
               </el-input>
@@ -34,6 +34,9 @@
   </div>
 </template>
 <script>
+import gql from 'graphql-tag'
+import { mapActions } from 'vuex'
+import { setToken } from '@/utils/token'
 
 export default {
   name: 'Login',
@@ -50,7 +53,7 @@ export default {
         ],
         password: [
           { required: true, message: 'Please text your password', trigger: 'change' },
-          { min: 8, max: 16, message: 'Password must be minimum 8, maximum 16 charecter long', trigger: 'change' }
+          { min: 6, max: 16, message: 'Password must be minimum 6, maximum 16 charecter long', trigger: 'change' }
         ]
       }
     }
@@ -59,17 +62,53 @@ export default {
     submitForm (formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          this.login()
         } else {
-          console.log('error submit!!')
+          this.$message({
+            type: 'warning',
+            message: 'You must fill required inputs'
+          })
           return false
         }
       })
-    }
+    },
+    async login () {
+      try {
+        const response = await this.$apollo.mutate({
+          mutation: gql`mutation($userName: String!, $password: String!) {
+            login(userName: $userName, password: $password) {
+              user {
+                userName
+                email
+              }
+              token
+            }
+          }`,
+          variables: {
+            userName: this.loginForm.username,
+            password: this.loginForm.password
+          }
+        })
+        setToken(response.data.login.token)
+        this.setUserName(response.data.login.user.userName)
+        this.setEmail(response.data.login.user.email)
+        this.setLoggedIn()
+        this.$router.push({ name: 'Hub' })
+      } catch (error) {
+        this.$message({
+          message: this.$graphqlError(error),
+          type: 'error'
+        })
+      }
+    },
+    ...mapActions(['setLoggedIn', 'setUserName', 'setEmail'])
   }
 }
 </script>
 <style lang="scss" scoped>
+  h1,h2,h3,h4,h5,h6{
+    text-align: left;
+  }
   .login-bg{
     position: absolute;
     top:0;

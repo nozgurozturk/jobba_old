@@ -98,15 +98,6 @@ export default {
 .el-main{
     overflow: visible;
 }
-.clr-blue{
-  color: #0F62FE
-}
-.clr-yellow{
-  color: #F1C21B;
-}
-.clr-red{
-  color: #FA4D56;
-}
 .el-header{
   text-align:right;
   margin-top:20px;

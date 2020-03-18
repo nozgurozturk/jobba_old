@@ -7,6 +7,33 @@
     <router-view />
   </div>
 </template>
+<script>
+import { mapActions } from 'vuex'
+import { checkToken } from './utils/token'
+import gql from 'graphql-tag'
+
+export default {
+  name: 'App',
+  async created () {
+    this.setLoggedIn()
+    if (checkToken()) await this.me()
+  },
+  methods: {
+    async me () {
+      try {
+        const response = await this.$apollo.query({
+          query: gql`query me{ me { userName, email }}`
+        })
+        this.setUserName(response.data.me.userName)
+        this.setEmail(response.data.me.email)
+      } catch (error) {
+        this.$graphqlError(error)
+      }
+    },
+    ...mapActions(['setLoggedIn', 'setUserName', 'setEmail'])
+  }
+}
+</script>
 
 <style lang="scss">
 
@@ -50,6 +77,15 @@ a{
 body{
   margin:0;
   padding:0;
+  box-sizing: border-box;
 }
-
+.clr-blue{
+  color: #0F62FE
+}
+.clr-yellow{
+  color: #F1C21B;
+}
+.clr-red{
+  color: #FA4D56;
+}
 </style>

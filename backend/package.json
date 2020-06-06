@@ -31,7 +31,7 @@
   "author": "Ozgur Ozturk",
   "license": "ISC",
   "dependencies": {
-    "apollo-server-express": "^2.10.1",
+    "apollo-server-express": "^2.14.2",
     "bcrypt": "^3.0.8",
     "cheerio": "^1.0.0-rc.3",
     "deepmerge": "^4.2.2",
